@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mood_shifting_assistent/classifier.dart';
+import 'package:mood_shifting_assistent/services/database.dart';
 
 class TextClassification extends StatefulWidget {
   const TextClassification({ Key? key }) : super(key: key);
@@ -13,6 +14,9 @@ class _TextClassificationState extends State<TextClassification> {
   late TextEditingController _controller;
   late Classifier _classifier;
   late List<Widget> _children;
+
+  final DatabaseService _databaseService = DatabaseService();
+
   @override
   void initState() {
     super.initState();
@@ -41,6 +45,16 @@ class _TextClassificationState extends State<TextClassification> {
                   return _children[index];
                 },
               )),
+              ElevatedButton(
+                child: const Text(
+                  'Send'
+                ),
+                onPressed: () {
+
+                  _databaseService.sendDailyProgress('Rfpm4kAiYKVwJcNNomVI');
+
+                }, 
+              ),
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(

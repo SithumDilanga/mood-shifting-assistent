@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "750662314662",
+    "project_id": "mood-shifting-assistant",
+    "storage_bucket": "mood-shifting-assistant.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750662314662:android:738ff90b9b24b83fcd6267",
+        "android_client_info": {
+          "package_name": "com.example.mood_shifting_assistent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "750662314662-c3p0f1n7urea3m05e240i8s8hk1ri2ec.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQrGpFPpgNNsJjc6HvpEBhR0PfMpZOF8g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "750662314662-c3p0f1n7urea3m05e240i8s8hk1ri2ec.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
