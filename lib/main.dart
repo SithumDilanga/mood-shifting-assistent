@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/home_page.dart';
 import 'screens/today_feeling_type_screen.dart';
-// new
 
 void main() {
   runApp(MyApp());
