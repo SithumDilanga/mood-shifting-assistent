@@ -1,16 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class DatabaseService {
 
   // users collection reference
   final CollectionReference userCollection = FirebaseFirestore.instance.collection('users');
 
+  // posts collection reference
+  final CollectionReference postsCollection = FirebaseFirestore.instance.collection('posts');
+
+
   Future sendDailyProgress(String uid,) async {
 
     return userCollection.doc(uid).collection('dailyProgress').doc().set({
       'journalText': 'test text',
       'status': 'positive',
-      'statusCalculation': 0.41,
+      'statusCalculation': 0.50,
       'timeStamp': FieldValue.serverTimestamp(),
       'order': FieldValue.increment(1)
     });
@@ -19,7 +24,7 @@ class DatabaseService {
 
   Future getDailyProgress(String userId,) async {
 
-    return userCollection.doc(userId).collection('dailyProgress').get().then((value) {
+    return userCollection.doc(userId).collection('dailyProgress').orderBy('timeStamp', descending: false).get().then((value) {
       print('value ${value.docs.length}');
 
       if(value.docs.length % 7 == 0) {
@@ -30,12 +35,13 @@ class DatabaseService {
 
       }
 
-      return value.docs.length;
+      return value.docs.last;
     } 
 
     );
 
   }
+
 
   Future sendWeeklyProgress(String uid, double weeklyProgress, String weeklyStatus) async {
 
@@ -110,5 +116,62 @@ class DatabaseService {
     return average;
 
   }
+
+  Future getDailyPosts(String userId) async {
+
+    List dailyProgress = await getDailyProgress(userId);
+
+    double todayProgress = dailyProgress.last['statusCalculation'];
+
+    print('dailyPosts ${todayProgress}');
+
+    // if(todayProgress > 0.1) {
+
+     return getPosts(userId, 0.5);
+
+    // }
+
+  }
+
+  Stream<DocumentSnapshot> getPosts(String uid, double dailyProgress) {
+
+    dynamic posts;
+
+    print('dailyStreamProgress ${dailyProgress}');
+
+    if(dailyProgress >= 0.5 && dailyProgress < 0.6) {
+      posts = FirebaseFirestore.instance.collection('posts').doc(uid).snapshots();
+    } else if(dailyProgress >= 0.6 && dailyProgress < 0.7) {
+      posts = FirebaseFirestore.instance.collection('posts').doc('PWLyCx7Pnc61JO0biuQ9').snapshots();
+    }
+
+    return posts;
+
+    // print('postsStream ${postsStream}');
+
+    // return postsStream;
+
+  }
+  
+
+  // // user posts list from snapshot
+  // List<Post> _postsFromSnapshot(QuerySnapshot snapshot) {
+  //   return snapshot.docs.map((doc,) {
+  //     print('gritie doc ' + doc.toString());
+
+  //     if(doc.id == ) {
+
+  //     }
+
+  //     return Post(
+  //       postLink: 'postLink'
+  //     );
+  //   }).toList();
+  // }
+
+  // // get posts stream
+  // Stream<List<Post>> get getPosts {
+  //   return postsCollection.snapshots().map(_postsFromSnapshot);
+  // }
 
 }
