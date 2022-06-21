@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 
 class DatabaseService {
 
+  // userid of the user
+  final String uid;
+
+  DatabaseService({required this.uid,});
+
   // users collection reference
   final CollectionReference userCollection = FirebaseFirestore.instance.collection('users');
 
@@ -10,10 +15,10 @@ class DatabaseService {
   final CollectionReference postsCollection = FirebaseFirestore.instance.collection('posts');
 
 
-  Future sendDailyProgress(String uid,) async {
+  Future sendDailyProgress(String uid, String journalText) async {
 
     return userCollection.doc(uid).collection('dailyProgress').doc().set({
-      'journalText': 'test text',
+      'journalText': journalText,
       'status': 'positive',
       'statusCalculation': 0.50,
       'timeStamp': FieldValue.serverTimestamp(),
@@ -24,8 +29,16 @@ class DatabaseService {
 
   Future getDailyProgress(String userId,) async {
 
+    List newDocs = [];
+
     return userCollection.doc(userId).collection('dailyProgress').orderBy('timeStamp', descending: false).get().then((value) {
       print('value ${value.docs.length}');
+
+      value.docs.map((DocumentSnapshot document) {
+        Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+          print('newdocs ' + data.toString());
+          newDocs.add(data);
+      }).toList();
 
       if(value.docs.length % 7 == 0) {
 
@@ -34,6 +47,8 @@ class DatabaseService {
         getWeekFromDailyProgress(userId);
 
       }
+
+      print('value.docs.last ' + newDocs.last['statusCalculation'].toString());
 
       return value.docs.last;
     } 
@@ -119,11 +134,14 @@ class DatabaseService {
 
   Future getDailyPosts(String userId) async {
 
-    List dailyProgress = await getDailyProgress(userId);
+    final dailyProgress = await getDailyProgress(userId);
 
-    double todayProgress = dailyProgress.last['statusCalculation'];
 
-    print('dailyPosts ${todayProgress}');
+    print('dailyProgress ${dailyProgress}');
+
+    // double todayProgress = dailyProgress.last['statusCalculation'];
+
+    // print('dailyPosts ${todayProgress}');
 
     // if(todayProgress > 0.1) {
 
@@ -140,10 +158,14 @@ class DatabaseService {
     print('dailyStreamProgress ${dailyProgress}');
 
     if(dailyProgress >= 0.5 && dailyProgress < 0.6) {
-      posts = FirebaseFirestore.instance.collection('posts').doc(uid).snapshots();
-    } else if(dailyProgress >= 0.6 && dailyProgress < 0.7) {
+
       posts = FirebaseFirestore.instance.collection('posts').doc('PWLyCx7Pnc61JO0biuQ9').snapshots();
+
+    } else if(dailyProgress >= 0.6 && dailyProgress < 0.7) {
+      posts = FirebaseFirestore.instance.collection('posts').doc('U1L4ppBqZ8lNAYq1uUnM').snapshots();
     }
+
+    print('newposts ${posts}');
 
     return posts;
 
@@ -152,6 +174,18 @@ class DatabaseService {
     // return postsStream;
 
   }
+
+   // ------- creating new document for a new user and updating existing userdata ------
+    Future createNewUserData({String? name, String? email, String? password}) async {
+      return await userCollection.doc(uid).set({
+        'uid': uid,
+        'name': name,
+        'email': email,
+        'password': password,
+      });
+    }
+
+    // ------- End creating new document for a new user and updating existing userdata ------
   
 
   // // user posts list from snapshot

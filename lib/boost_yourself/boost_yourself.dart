@@ -131,7 +131,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
 
 
     var initializationSettingsAndroid =
-      AndroidInitializationSettings('my_icon');
+     const AndroidInitializationSettings('my_icon');
     var initializationSettingsIOs = IOSInitializationSettings();
 
     var initSetttings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOs);
@@ -148,7 +148,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
 
     _animRectFadeController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 3),
+      duration: const Duration(seconds: 3),
     );
 
     final curve = CurvedAnimation(
@@ -188,25 +188,28 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
     _width = MediaQuery.of(context).size.width;
     dateTime = DateFormat.yMd().format(DateTime.now());
 
-    return Material(
+    return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //   title: Text(
-        //     'Boost Yourself',
-        //     style: TextStyle(
-        //       fontSize: 20,
-        //     ),
-        //   ),
-        //   backgroundColor: Colors.blueGrey[700],
-        // ),
+        appBar: AppBar(
+          title: const Text(
+            'Boost Yourself',
+            style: TextStyle(
+              fontSize: 20,
+            ),
+          ),
+          backgroundColor: Colors.blueGrey[700],
+        ),
         body: 
         Container(
           height: height,
-            decoration: BoxDecoration(
-              // image: DecorationImage(
-              //   image: AssetImage('assets/images/background.jpg'),
-              //   fit: BoxFit.cover
-              // )
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(
+                  'https://miro.medium.com/max/701/1*Y450KzMbvk2q7qCf36yEKg.png'
+                ),
+                // image: AssetImage('assets/images/drawer-img3.jpg'),
+                fit: BoxFit.cover
+              )
             ),
           child: Stack(
            children: <Widget>[
@@ -256,8 +259,8 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                child: Column(                // Main Column
                  crossAxisAlignment: CrossAxisAlignment.stretch,
                  children: <Widget>[
-                   Padding(
-                     padding: const EdgeInsets.only(left: 30.0, top: 24.0),
+                   const Padding(
+                     padding: EdgeInsets.only(left: 30.0, top: 24.0),
                      child: Text(
                        'Type the quote you want',
                        style: TextStyle(
@@ -287,14 +290,14 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                                borderRadius: BorderRadius.circular(5),
                                borderSide: BorderSide.none
                              ),
-                             hintStyle: TextStyle(
+                             hintStyle: const TextStyle(
                                fontSize: 24
                              ),
-                             focusedBorder: OutlineInputBorder(
+                             focusedBorder: const OutlineInputBorder(
                                borderSide: BorderSide(color: Colors.white),
                              )
                            ),
-                           style: TextStyle(
+                           style: const TextStyle(
                              fontSize: 24,
                              fontWeight: FontWeight.bold
                            ),
@@ -302,14 +305,14 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                        ),
                      ),
                    ),
-                   SizedBox(height: 32.0),
+                   const SizedBox(height: 32.0),
                    Row(      // Choose Date and Time
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                      children: <Widget>[
                        Column(       // Choose Date
                        crossAxisAlignment: CrossAxisAlignment.start,
                          children: <Widget>[
-                           Text(
+                           const Text(
                              'Choose Date',
                              textAlign: TextAlign.left,
                              style: TextStyle(
@@ -318,7 +321,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                                fontWeight: FontWeight.bold
                              ),
                            ),
-                           SizedBox(height: 8.0),
+                           const SizedBox(height: 8.0),
                            InkWell(
                             onTap: () {
                               _selectDate(context);
@@ -332,7 +335,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                                 borderRadius: BorderRadius.circular(5)
                               ),
                               child: TextFormField(
-                                style: TextStyle(fontSize: 24),
+                                style: const TextStyle(fontSize: 24),
                                 textAlign: TextAlign.center,
                                 enabled: false,
                                 keyboardType: TextInputType.text,
@@ -341,7 +344,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                                   _setDate = val;
                                   // print('Date : ' + _setDate.toString());
                                 },
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                     disabledBorder:
                                         UnderlineInputBorder(borderSide: BorderSide.none),
                                     // labelText: 'Time',
@@ -355,7 +358,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                        Column(      // Choose Time
                        crossAxisAlignment: CrossAxisAlignment.start,
                          children: <Widget>[
-                           Text(
+                           const Text(
                              'Choose Time',
                              textAlign: TextAlign.left,
                              style: TextStyle(
@@ -364,7 +367,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                                fontWeight: FontWeight.bold
                              ),
                            ),
-                           SizedBox(height: 8.0),
+                           const SizedBox(height: 8.0),
                            InkWell(
                             onTap: () {
                               _selectTime(context);
@@ -387,7 +390,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                                 enabled: false,
                                 keyboardType: TextInputType.text,
                                 controller: _timeController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                     disabledBorder:
                                         UnderlineInputBorder(borderSide: BorderSide.none),
                                     // labelText: 'Time',
@@ -399,15 +402,15 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                        )
                      ],
                    ),
-                   SizedBox(height: 32.0),
+                   const SizedBox(height: 32.0),
                    Padding(                 // Schedule button
                      padding: const EdgeInsets.only(left: 95.0, right: 95.0),
                      child: ElevatedButton(    
                        onPressed: () async {
-
+    
                          print('selectedDate ' + selectedDate.toString());
                          print('selectedTime ' + selectedTime.format(context));
-     
+       
                          setState(() {
                            date_time =  
                            selectedDate.year.toString() + '-' +
@@ -416,36 +419,36 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                            selectedTime.hour.toString().padLeft(2,'0') + ':' + 
                            selectedTime.minute.toString().padLeft(2,'0') + ':00';
                          });
-     
+       
                          print('dt ' + date_time.toString());
-     
+       
                          scheduleNotification(date_time);
-
+    
                          Fluttertoast.showToast(
                            msg: 'Quote Scheduled Successfully!',
                            toastLength: Toast.LENGTH_SHORT
                           );
-
+    
                           quoteList.add(qutoteTextController.text);
                           print(quoteList);
-
+    
                           dateTimeList.add(date_time);
                           print(dateTimeList);
-
+    
                           // ---- prevent list taking too much elements ----
                           if(quoteList.length == 5) {
                             quoteList.removeRange(0, 3);
                           }
-
+    
                           if(dateTimeList.length == 5) {
                             dateTimeList.removeRange(0, 3);
                           }
                           // ---- End prevent list taking too much elements ----
-
+    
                           // setting shared preferences
                           await SharedPref.setQuoteList(quoteList);
                           await SharedPref.setDateTimeList(dateTimeList);
-
+    
                        },
                        style: ButtonStyle(
                          backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
@@ -455,7 +458,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                          )
                         ),
                         padding: MaterialStateProperty.all(
-                          EdgeInsets.only(top: 12.0, bottom: 12.0)
+                          const EdgeInsets.only(top: 12.0, bottom: 12.0)
                         ),
                         elevation: MaterialStateProperty.all(3.8)
                        ), 
@@ -469,8 +472,8 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                        )
                       ),
                    ),
-                   SizedBox(height: 16.0),
-                   Padding(
+                   const SizedBox(height: 16.0),
+                   const Padding(
                      padding: const EdgeInsets.only(left: 24.0),
                      child: Text(
                        'Previous Schedules',
@@ -481,9 +484,9 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                        ),
                      ),
                    ),
-                   SizedBox(height: 4.0),                    
+                   const SizedBox(height: 4.0),                    
                    PreviousSchedules(quoteList: quoteList, dateTimeList: dateTimeList,),
-                   SizedBox(height: 32.0),
+                   const SizedBox(height: 32.0),
                    FadeTransition(
                      opacity: _animTextShowupController,
                      child: SlideTransition(
@@ -502,7 +505,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                                children: <Widget>[
                                  RichText(
                                    textAlign: TextAlign.left,
-                                   text: TextSpan(
+                                   text: const TextSpan(
                                      text: 'What is ',
                                      style: TextStyle(
                                        fontSize: 18,
@@ -518,8 +521,8 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                                      ]
                                    )
                                   ),
-                                  SizedBox(height: 8.0),
-                                  Text(
+                                  const SizedBox(height: 8.0),
+                                  const Text(
                                     'You can set your own custom notification for a given date and time. Simply Type the Quote you want to notify and set a date and time. This will help you to keep your motivation straight with your favourite quotes. ',
                                     style: TextStyle(
                                        fontSize: 16,
@@ -533,7 +536,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                          ),
                      ),
                    ),
-                   SizedBox(height: 8.0)
+                   const SizedBox(height: 8.0)
                  ]
                ),
              )

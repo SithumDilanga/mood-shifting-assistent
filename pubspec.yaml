@@ -43,6 +43,11 @@ dependencies:
   flutter_local_notifications: ^9.3.2
   shared_preferences: ^2.0.13
   fluttertoast: ^8.0.9
+  syncfusion_flutter_charts: ^19.4.56
+  syncfusion_flutter_core: ^19.4.56
+  email_validator: ^2.0.1
+  firebase_auth: ^3.3.20
+  provider: ^6.0.3
 
 dev_dependencies:
   flutter_test:
@@ -69,7 +74,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
-
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

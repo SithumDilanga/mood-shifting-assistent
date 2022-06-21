@@ -12,16 +12,17 @@ class TextClassification extends StatefulWidget {
 
 class _TextClassificationState extends State<TextClassification> {
 
-  late TextEditingController _controller;
+  late TextEditingController _textController;
   late Classifier _classifier;
   late List<Widget> _children;
+  String journalText = '';
 
-  final DatabaseService _databaseService = DatabaseService();
+  final DatabaseService _databaseService = DatabaseService(uid: 'null');
 
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController();
+    _textController = TextEditingController();
     _classifier = Classifier();
     _children = [];
     _children.add(Container());
@@ -89,8 +90,13 @@ class _TextClassificationState extends State<TextClassification> {
                                   'Send'
                                 ),
                                 onPressed: () async {
+
+                                  print('objectNew ${_textController.text}');
                 
-                                  _databaseService.sendDailyProgress('Rfpm4kAiYKVwJcNNomVI');
+                                  _databaseService.sendDailyProgress(
+                                    'Rfpm4kAiYKVwJcNNomVI',
+                                    journalText
+                                  );
                                   // _databaseService.getWeekFromDailyProgress('Rfpm4kAiYKVwJcNNomVI');
                 
                                   // await FirebaseFirestore.instance.collection('users').doc('Rfpm4kAiYKVwJcNNomVI').collection('dailyProgress').get().then((QuerySnapshot querySnapshot) => {
@@ -117,6 +123,17 @@ class _TextClassificationState extends State<TextClassification> {
                 
                                 }, 
                               ),
+                              // ElevatedButton(
+                              //   child: const Text(
+                              //     'getDailyPosts'
+                              //   ),
+                              //   onPressed: () async {
+                
+                              
+                              //     _databaseService.getDailyPosts('Rfpm4kAiYKVwJcNNomVI');
+                
+                              //   }, 
+                              // ),
                               Container(
                                 padding: const EdgeInsets.all(8),
                                 decoration: BoxDecoration(
@@ -126,17 +143,20 @@ class _TextClassificationState extends State<TextClassification> {
                                     child: TextField(
                                       decoration: const InputDecoration(
                                           hintText: 'Write some text here'),
-                                      controller: _controller,
+                                      controller: _textController,
                                     ),
                                   ),
                                   TextButton(
                                     child: const Text('Classify'),
                                     onPressed: () {
                                       
-                                      final text = _controller.text;
+                                      final text = _textController.text;
                                       final prediction = _classifier.classify(text);
                 
                                       setState(() {
+
+                                        journalText = _textController.text;
+
                                         _children.add(Dismissible(
                                           key: GlobalKey(),
                                           onDismissed: (direction) {},
@@ -161,7 +181,7 @@ class _TextClassificationState extends State<TextClassification> {
                                             ),
                                           ),
                                         ));
-                                        _controller.clear();
+                                        _textController.clear();
                                       });
                                     },
                                   ),
