@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mood_shifting_assistent/models/chart_data.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class LineChart extends StatefulWidget {
@@ -13,18 +14,18 @@ class _LineChartState extends State<LineChart> {
   // _LineDefaultState();
   bool isCardView = false;
 
-  List<_ChartData>? chartData;
+  List<ChartData>? chartData;
 
   @override
   void initState() {
-    chartData = <_ChartData>[
-      _ChartData(1, 21, 28),
-      _ChartData(2, 24, 44),
-      _ChartData(3, 36, 48),
-      _ChartData(4, 38, 50),
-      _ChartData(5, 54, 66),
-      _ChartData(6, 57, 78),
-      _ChartData(7, 70, 84)
+    chartData = <ChartData>[
+      ChartData(1, 4.5, 28),
+      ChartData(2, 2.4, 44),
+      ChartData(3, 5.6, 48),
+      ChartData(4, 6.0, 50),
+      ChartData(5, 5.5, 66),
+      ChartData(6, 7.2, 78),
+      ChartData(7, 3.8, 84)
     ];
     super.initState();
   }
@@ -47,7 +48,7 @@ class _LineChartState extends State<LineChart> {
   SfCartesianChart _buildDefaultLineChart() {
     return SfCartesianChart(
       plotAreaBorderWidth: 0,
-      title: ChartTitle(text: isCardView ? '' : 'This week your mood variation'),
+      title: ChartTitle(text: isCardView ? '' : 'This week your mood variation(day vs mood)'),
       legend: Legend(
           isVisible: isCardView ? false : true,
           overflowMode: LegendItemOverflowMode.wrap),
@@ -65,24 +66,24 @@ class _LineChartState extends State<LineChart> {
   }
 
   /// The method returns line series to chart.
-  List<LineSeries<_ChartData, num>> _getDefaultLineSeries() {
-    return <LineSeries<_ChartData, num>>[
-      LineSeries<_ChartData, num>(
+  List<LineSeries<ChartData, num>> _getDefaultLineSeries() {
+    return <LineSeries<ChartData, num>>[
+      LineSeries<ChartData, num>(
         animationDuration: 2500,
         dataSource: chartData!,
-        xValueMapper: (_ChartData sales, _) => sales.x,
-        yValueMapper: (_ChartData sales, _) => sales.y,
+        xValueMapper: (ChartData sales, _) => sales.x,
+        yValueMapper: (ChartData sales, _) => sales.y,
         width: 2,
-        name: 'Germany',
+        name: 'Mood',
         markerSettings: const MarkerSettings(isVisible: true)
       ),
-      // LineSeries<_ChartData, num>(
+      // LineSeries<ChartData, num>(
       //     animationDuration: 2500,
       //     dataSource: chartData!,
       //     width: 2,
       //     name: 'England',
-      //     xValueMapper: (_ChartData sales, _) => sales.x,
-      //     yValueMapper: (_ChartData sales, _) => sales.y2,
+      //     xValueMapper: (ChartData sales, _) => sales.x,
+      //     yValueMapper: (ChartData sales, _) => sales.y2,
       //     markerSettings: const MarkerSettings(isVisible: true)
       // )
     ];
@@ -129,10 +130,3 @@ class _LineChartState extends State<LineChart> {
 //   final DateTime year;
 //   final double sales;
 // }
-
-class _ChartData {
-  _ChartData(this.x, this.y, this.y2);
-  final double x;
-  final double y;
-  final double y2;
-}

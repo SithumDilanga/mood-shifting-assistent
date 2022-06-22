@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class DatabaseService {
 
@@ -13,6 +14,9 @@ class DatabaseService {
 
   // posts collection reference
   final CollectionReference postsCollection = FirebaseFirestore.instance.collection('posts');
+
+  // dailyQuote collection reference
+  final CollectionReference dailyQuoteCollection = FirebaseFirestore.instance.collection('dailyQuote');
 
 
   Future sendDailyProgress(String uid, String journalText) async {
@@ -51,6 +55,28 @@ class DatabaseService {
       print('value.docs.last ' + newDocs.last['statusCalculation'].toString());
 
       return value.docs.last;
+    } 
+
+    );
+
+  }
+
+  Future getWeeklyProgresses(String userId,) async {
+
+    List newDocs = [];
+
+    return userCollection.doc(userId).collection('dailyProgress').orderBy('timeStamp', descending: true).limit(7).get().then((value) {
+      print('value ${value.docs.length}');
+
+      value.docs.map((DocumentSnapshot document) {
+        Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+          print('newdocs ' + data.toString());
+          newDocs.add(data['statusCalculation']);
+      }).toList();
+
+      print('newDocs $newDocs');
+
+      return newDocs;
     } 
 
     );
@@ -186,6 +212,42 @@ class DatabaseService {
     }
 
     // ------- End creating new document for a new user and updating existing userdata ------
+
+  Future getDailyQuote() async {
+
+    List dailyQuote = [];
+
+    dailyQuoteCollection.orderBy('timeStamp', descending: true).limit(1).get().then((QuerySnapshot querySnapshot) {
+        querySnapshot.docs.forEach((doc) {
+          dailyQuote.add(doc["quote"]);
+            print('quote ${doc["quote"]}');
+        });
+    });
+
+    return dailyQuote;
+
+  }  
+
+   Future addNewDailyQuote(String quote) async {
+
+    return dailyQuoteCollection.doc().set({
+      'quote': quote,
+      'timeStamp': FieldValue.serverTimestamp(),
+    }).then((value) {
+      
+      Fluttertoast.showToast(
+        msg: "Successfully added daily quote",
+        toastLength: Toast.LENGTH_SHORT,
+      );
+
+    }).onError((error, stackTrace) {
+        Fluttertoast.showToast(
+          msg: "Error adding daily quote",
+          toastLength: Toast.LENGTH_SHORT,
+        );
+    });
+
+  } 
   
 
   // // user posts list from snapshot

@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mood_shifting_assistent/admin/add_daily_quote.dart';
 import 'package:mood_shifting_assistent/auth/sign_up.dart';
 import 'package:mood_shifting_assistent/boost_yourself/boost_yourself.dart';
 import 'package:mood_shifting_assistent/line_chart.dart';
 import 'package:mood_shifting_assistent/services/auth.dart';
+import 'package:mood_shifting_assistent/services/database.dart';
 import 'package:mood_shifting_assistent/text_classification/text_classification.dart';
 
 class NewHomePage extends StatefulWidget {
@@ -17,6 +20,7 @@ class NewHomePage extends StatefulWidget {
 class _NewHomePageState extends State<NewHomePage> {
 
   AuthService _authService = AuthService();
+  DatabaseService _databaseService = DatabaseService(uid: 'null');
 
   @override
   Widget build(BuildContext context) {
@@ -25,73 +29,129 @@ class _NewHomePageState extends State<NewHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-              child: const Text(
-                'Text classification'
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const TextClassification()),
-                );
-              }, 
-            ),
-            ElevatedButton(
-              child: const Text(
-                'Boost yourself'
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => BoostYourself()),
-                );
-              }, 
-            ),
-            ElevatedButton(
-              child: const Text(
-                'Line Chart'
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LineChart()),
-                );
-              }, 
-            ),
-            ElevatedButton(
-              child: const Text(
-                'Sign up'
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SignUp()),
-                );
-              }, 
-            ),
-            ElevatedButton(
-              child: const Text(
-                'Logout'
-              ),
-              onPressed: () {
+      body: FutureBuilder<QuerySnapshot>(
+        future: FirebaseFirestore.instance.collection('dailyQuote').orderBy('timeStamp', descending: true).limit(1).get() ,//_databaseService.getDailyQuote(),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
 
-                _authService.logOut().whenComplete(() {
+          if (snapshot.hasData) {
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SignUp()),
-                  );
+            print('dailyQuote ${snapshot.data}');
 
-                });
+            // Map<String, dynamic> snapshotData = snapshot.data as Map<String, dynamic>;
 
-              }, 
-            )
-          ],
-        ),
+            // print('dailyQuote ${snapshotData['quote']}');
+
+          }
+
+
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ElevatedButton(
+                  child: const Text(
+                    'Text classification'
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const TextClassification()),
+                    );
+                  }, 
+                ),
+                ElevatedButton(
+                  child: const Text(
+                    'Boost yourself'
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => BoostYourself()),
+                    );
+                  }, 
+                ),
+                ElevatedButton(
+                  child: const Text(
+                    'Line Chart'
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LineChart()),
+                    );
+                  }, 
+                ),
+                ElevatedButton(
+                  child: const Text(
+                    'Sign up'
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignUp()),
+                    );
+                  }, 
+                ),
+                ElevatedButton(
+                  child: const Text(
+                    'Logout'
+                  ),
+                  onPressed: () {
+      
+                    _authService.logOut().whenComplete(() {
+      
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SignUp()),
+                      );
+      
+                    });
+      
+                  }, 
+                ),
+                ElevatedButton(
+                  child: const Text(
+                    'getDailyQuote'
+                  ),
+                  onPressed: () {
+      
+                    _databaseService.getDailyQuote();
+      
+                  }, 
+                ),
+                ElevatedButton(
+                  child: const Text(
+                    'Add daily quote'
+                  ),
+                  onPressed: () {
+      
+                    _authService.logOut().whenComplete(() {
+      
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AddDailyQuote()
+                        ),
+                      );
+      
+                    });
+      
+                  }, 
+                ),
+                ElevatedButton(
+                  child: const Text(
+                    'get weekly progresses'
+                  ),
+                  onPressed: () {
+      
+                    _databaseService.getWeeklyProgresses('Rfpm4kAiYKVwJcNNomVI');
+      
+                  }, 
+                ),
+              ],
+            ),
+          );
+        }
       ),
     );
   }
