@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mood_shifting_assistent/models/chart_data.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:mood_shifting_assistent/utils/truncate_doubles.dart';
 
 class LineChart extends StatefulWidget {
-  const LineChart({ Key? key }) : super(key: key);
+
+  final weeklyProgresses;
+
+  const LineChart({ Key? key, this.weeklyProgresses }) : super(key: key);
 
   @override
   State<LineChart> createState() => _LineChartState();
@@ -18,15 +22,18 @@ class _LineChartState extends State<LineChart> {
 
   @override
   void initState() {
-    chartData = <ChartData>[
-      ChartData(1, 4.5, 28),
-      ChartData(2, 2.4, 44),
-      ChartData(3, 5.6, 48),
-      ChartData(4, 6.0, 50),
-      ChartData(5, 5.5, 66),
-      ChartData(6, 7.2, 78),
-      ChartData(7, 3.8, 84)
-    ];
+    chartData = <ChartData>[];
+
+    for(int i = 0; i < widget.weeklyProgresses.length; i++) {
+      chartData?.add(
+        ChartData(
+        i + 1, 
+        TruncateDoubles().truncateToDecimalPlaces(widget.weeklyProgresses.elementAt(i), 2)  * 10, 
+        50
+      ),
+      );
+    }
+
     super.initState();
   }
 

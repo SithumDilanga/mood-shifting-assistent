@@ -7,6 +7,7 @@ class SharedPref {
 
   static const _keyQuoteList = 'quoteList';
   static const _keyDateTimeList = 'dateTimeList';
+  static const _keyDailyProgress = 'dailyProgressValue';
 
   static Future init() async {
     return _preferences = await SharedPreferences.getInstance();
@@ -48,6 +49,15 @@ class SharedPref {
 
   static String? getUserName() {
     return _preferences?.getString(_keyUserName);
+  }
+
+  static Future<bool> setDailyProgress(double dailyProgress) async {
+    print('dailyProgressShared $dailyProgress');
+    return await _preferences!.setDouble(_keyDailyProgress, dailyProgress);
+  }
+
+  static double? getDailyProgress() {
+    return _preferences?.getDouble(_keyDailyProgress) ?? 0.0;
   }
 
 

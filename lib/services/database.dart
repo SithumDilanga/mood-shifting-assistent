@@ -19,12 +19,12 @@ class DatabaseService {
   final CollectionReference dailyQuoteCollection = FirebaseFirestore.instance.collection('dailyQuote');
 
 
-  Future sendDailyProgress(String uid, String journalText) async {
+  Future sendDailyProgress(String uid, String journalText, double statusCalculation) async {
 
     return userCollection.doc(uid).collection('dailyProgress').doc().set({
       'journalText': journalText,
       'status': 'positive',
-      'statusCalculation': 0.50,
+      'statusCalculation': statusCalculation,
       'timeStamp': FieldValue.serverTimestamp(),
       'order': FieldValue.increment(1)
     });
@@ -65,21 +65,22 @@ class DatabaseService {
 
     List newDocs = [];
 
-    return userCollection.doc(userId).collection('dailyProgress').orderBy('timeStamp', descending: true).limit(7).get().then((value) {
-      print('value ${value.docs.length}');
+    return userCollection.doc(userId).collection('dailyProgress').orderBy('timeStamp', descending: true).limit(7).get();
+    // .then((value) {
+    //   print('value ${value.docs.length}');
 
-      value.docs.map((DocumentSnapshot document) {
-        Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-          print('newdocs ' + data.toString());
-          newDocs.add(data['statusCalculation']);
-      }).toList();
+    //   value.docs.map((DocumentSnapshot document) {
+    //     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+    //       print('newdocs ' + data.toString());
+    //       newDocs.add(data['statusCalculation']);
+    //   }).toList();
 
-      print('newDocs $newDocs');
+    //   print('newDocs $newDocs');
 
-      return newDocs;
-    } 
+    //   return newDocs;
+    // } 
 
-    );
+    // );
 
   }
 
@@ -158,12 +159,12 @@ class DatabaseService {
 
   }
 
-  Future getDailyPosts(String userId) async {
+  Future getDailyPosts(String userId, double dailyProgress) async {
 
-    final dailyProgress = await getDailyProgress(userId);
+    // final dailyProgress = await getDailyProgress(userId);
 
 
-    print('dailyProgress ${dailyProgress}');
+    print('dailyPosts ${dailyProgress}');
 
     // double todayProgress = dailyProgress.last['statusCalculation'];
 
@@ -171,13 +172,13 @@ class DatabaseService {
 
     // if(todayProgress > 0.1) {
 
-     return getPosts(userId, 0.5);
+     return getPosts(userId, dailyProgress);
 
     // }
 
   }
 
-  Stream<DocumentSnapshot> getPosts(String uid, double dailyProgress) {
+  Stream<DocumentSnapshot>? getPosts(String uid, double dailyProgress) {
 
     dynamic posts;
 
@@ -185,15 +186,15 @@ class DatabaseService {
 
     if(dailyProgress >= 0.5 && dailyProgress < 0.6) {
 
-      posts = FirebaseFirestore.instance.collection('posts').doc('PWLyCx7Pnc61JO0biuQ9').snapshots();
+      return FirebaseFirestore.instance.collection('posts').doc('PWLyCx7Pnc61JO0biuQ9').snapshots();
 
     } else if(dailyProgress >= 0.6 && dailyProgress < 0.7) {
-      posts = FirebaseFirestore.instance.collection('posts').doc('U1L4ppBqZ8lNAYq1uUnM').snapshots();
+      return FirebaseFirestore.instance.collection('posts').doc('U1L4ppBqZ8lNAYq1uUnM').snapshots();
     }
 
     print('newposts ${posts}');
 
-    return posts;
+    // return posts;
 
     // print('postsStream ${postsStream}');
 

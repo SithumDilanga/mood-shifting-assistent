@@ -4,9 +4,11 @@ import 'package:mood_shifting_assistent/admin/add_daily_quote.dart';
 import 'package:mood_shifting_assistent/auth/sign_up.dart';
 import 'package:mood_shifting_assistent/boost_yourself/boost_yourself.dart';
 import 'package:mood_shifting_assistent/line_chart.dart';
+import 'package:mood_shifting_assistent/models/uid.dart';
 import 'package:mood_shifting_assistent/services/auth.dart';
 import 'package:mood_shifting_assistent/services/database.dart';
 import 'package:mood_shifting_assistent/text_classification/text_classification.dart';
+import 'package:provider/provider.dart';
 
 class NewHomePage extends StatefulWidget {
   const NewHomePage({Key? key, required this.title}) : super(key: key);
@@ -22,134 +24,164 @@ class _NewHomePageState extends State<NewHomePage> {
   AuthService _authService = AuthService();
   DatabaseService _databaseService = DatabaseService(uid: 'null');
 
+  Set<double> weeklyProgresses = {};
+
   @override
   Widget build(BuildContext context) {
+
+    final user = Provider.of<UID>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: FutureBuilder<QuerySnapshot>(
-        future: FirebaseFirestore.instance.collection('dailyQuote').orderBy('timeStamp', descending: true).limit(1).get() ,//_databaseService.getDailyQuote(),
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+      body: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance.collection('users').doc(user.uid).collection('dailyProgress').orderBy('timeStamp', descending: false).limit(7).snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
 
-          if (snapshot.hasData) {
+          if(streamSnapshot.hasData) {
 
-            print('dailyQuote ${snapshot.data}');
+            print('streamSnapshot ${streamSnapshot.data!.docs[0]['statusCalculation']}');
 
-            // Map<String, dynamic> snapshotData = snapshot.data as Map<String, dynamic>;
+            for (dynamic element in streamSnapshot.data!.docs) {
+              weeklyProgresses.add(element['statusCalculation']);
+            }
 
-            // print('dailyQuote ${snapshotData['quote']}');
+            print('weeklyProgresses $weeklyProgresses');
 
           }
 
-
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ElevatedButton(
-                  child: const Text(
-                    'Text classification'
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const TextClassification()),
-                    );
-                  }, 
+          return FutureBuilder(
+            future: Future.wait([
+              FirebaseFirestore.instance.collection('dailyQuote').orderBy('timeStamp', descending: true).limit(1).get() ,//_databaseService.getDailyQuote(),  
+              _databaseService.getWeeklyProgresses(user.uid)
+            ]), 
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+      
+              if (snapshot.hasData) {
+      
+                print('dailyQuote ${snapshot.data}');
+      
+                dynamic weeklyProgresses = snapshot.data![0];
+      
+                // Map<String, dynamic> snapshotData = weeklyProgresses as Map<String, dynamic>;
+      
+                // print('new data ${snapshotData}');
+      
+              }
+      
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    ElevatedButton(
+                      child: const Text(
+                        'Text classification'
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => TextClassification(
+                            uid: user.uid,
+                          )),
+                        );
+                      }, 
+                    ),
+                    ElevatedButton(
+                      child: const Text(
+                        'Boost yourself'
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => BoostYourself()),
+                        );
+                      }, 
+                    ),
+                    ElevatedButton(
+                      child: const Text(
+                        'Line Chart'
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LineChart(
+                            weeklyProgresses: weeklyProgresses
+                          )),
+                        );
+                      }, 
+                    ),
+                    ElevatedButton(
+                      child: const Text(
+                        'Sign up'
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignUp()),
+                        );
+                      }, 
+                    ),
+                    ElevatedButton(
+                      child: const Text(
+                        'Logout'
+                      ),
+                      onPressed: () {
+          
+                        _authService.logOut().whenComplete(() {
+          
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => SignUp()),
+                          );
+          
+                        });
+          
+                      }, 
+                    ),
+                    ElevatedButton(
+                      child: const Text(
+                        'getDailyQuote'
+                      ),
+                      onPressed: () {
+          
+                        _databaseService.getDailyQuote();
+          
+                      }, 
+                    ),
+                    ElevatedButton(
+                      child: const Text(
+                        'Add daily quote'
+                      ),
+                      onPressed: () {
+          
+                        _authService.logOut().whenComplete(() {
+          
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AddDailyQuote()
+                            ),
+                          );
+          
+                        });
+          
+                      }, 
+                    ),
+                    ElevatedButton(
+                      child: const Text(
+                        'get weekly progresses'
+                      ),
+                      onPressed: () {
+          
+                        _databaseService.getWeeklyProgresses('Rfpm4kAiYKVwJcNNomVI');
+          
+                      }, 
+                    ),
+                  ],
                 ),
-                ElevatedButton(
-                  child: const Text(
-                    'Boost yourself'
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => BoostYourself()),
-                    );
-                  }, 
-                ),
-                ElevatedButton(
-                  child: const Text(
-                    'Line Chart'
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LineChart()),
-                    );
-                  }, 
-                ),
-                ElevatedButton(
-                  child: const Text(
-                    'Sign up'
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SignUp()),
-                    );
-                  }, 
-                ),
-                ElevatedButton(
-                  child: const Text(
-                    'Logout'
-                  ),
-                  onPressed: () {
-      
-                    _authService.logOut().whenComplete(() {
-      
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SignUp()),
-                      );
-      
-                    });
-      
-                  }, 
-                ),
-                ElevatedButton(
-                  child: const Text(
-                    'getDailyQuote'
-                  ),
-                  onPressed: () {
-      
-                    _databaseService.getDailyQuote();
-      
-                  }, 
-                ),
-                ElevatedButton(
-                  child: const Text(
-                    'Add daily quote'
-                  ),
-                  onPressed: () {
-      
-                    _authService.logOut().whenComplete(() {
-      
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const AddDailyQuote()
-                        ),
-                      );
-      
-                    });
-      
-                  }, 
-                ),
-                ElevatedButton(
-                  child: const Text(
-                    'get weekly progresses'
-                  ),
-                  onPressed: () {
-      
-                    _databaseService.getWeeklyProgresses('Rfpm4kAiYKVwJcNNomVI');
-      
-                  }, 
-                ),
-              ],
-            ),
+              );
+            }
           );
         }
       ),

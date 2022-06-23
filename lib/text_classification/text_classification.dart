@@ -1,10 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mood_shifting_assistent/boost_yourself/shared_pref.dart';
+import 'package:mood_shifting_assistent/models/uid.dart';
+import 'package:mood_shifting_assistent/services/shared_pref.dart';
 import 'package:mood_shifting_assistent/text_classification/classifier.dart';
 import 'package:mood_shifting_assistent/services/database.dart';
+import 'package:provider/provider.dart';
 
 class TextClassification extends StatefulWidget {
-  const TextClassification({ Key? key }) : super(key: key);
+
+  final String uid;
+
+  const TextClassification({ Key? key, required this.uid }) : super(key: key);
 
   @override
   _TextClassificationState createState() => _TextClassificationState();
@@ -16,6 +23,9 @@ class _TextClassificationState extends State<TextClassification> {
   late Classifier _classifier;
   late List<Widget> _children;
   String journalText = '';
+  dynamic prediction;
+
+  double dailyProgressValue = 0.0;
 
   final DatabaseService _databaseService = DatabaseService(uid: 'null');
 
@@ -26,19 +36,38 @@ class _TextClassificationState extends State<TextClassification> {
     _classifier = Classifier();
     _children = [];
     _children.add(Container());
+
+    init();
+    
+  }
+
+  void init() async {
+    dailyProgressValue = SharedPref.getDailyProgress()!;
   }
 
   @override
   Widget build(BuildContext context) {
+
+    print('dailyProgressValue $dailyProgressValue');
+
     return Material(
       child : Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.orangeAccent,
           title: const Text('Text classification'),
         ),
-        body: StreamBuilder<Object>(
-          stream: null,
-          builder: (context, snapshot) {
+        body: StreamBuilder<DocumentSnapshot>(
+          stream: _databaseService.getPosts('Rfpm4kAiYKVwJcNNomVI', dailyProgressValue),
+          builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+
+            if(snapshot.hasData) {
+
+              dynamic dailyPosts = snapshot.data!.data();
+
+              print('fuck ${dailyPosts['posts']}');
+
+            }
+
             return FutureBuilder(
               future: _databaseService.getDailyProgress('Rfpm4kAiYKVwJcNNomVI'),
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -94,8 +123,9 @@ class _TextClassificationState extends State<TextClassification> {
                                   print('objectNew ${_textController.text}');
                 
                                   _databaseService.sendDailyProgress(
-                                    'Rfpm4kAiYKVwJcNNomVI',
-                                    journalText
+                                    widget.uid,
+                                    journalText,
+                                    prediction[1]
                                   );
                                   // _databaseService.getWeekFromDailyProgress('Rfpm4kAiYKVwJcNNomVI');
                 
@@ -119,7 +149,10 @@ class _TextClassificationState extends State<TextClassification> {
                                   // print('length $length');
                 
                                   // _databaseService.getWeekFromDailyProgress('Rfpm4kAiYKVwJcNNomVI');
-                                  _databaseService.getDailyPosts('Rfpm4kAiYKVwJcNNomVI');
+                                  _databaseService.getPosts(
+                                    'Rfpm4kAiYKVwJcNNomVI',
+                                    prediction[1]
+                                  );
                 
                                 }, 
                               ),
@@ -151,7 +184,9 @@ class _TextClassificationState extends State<TextClassification> {
                                     onPressed: () {
                                       
                                       final text = _textController.text;
-                                      final prediction = _classifier.classify(text);
+                                      prediction = _classifier.classify(text);
+
+                                      SharedPref.setDailyProgress(prediction[1]);
                 
                                       setState(() {
 

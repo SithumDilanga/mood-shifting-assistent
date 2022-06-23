@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:mood_shifting_assistent/boost_yourself/shared_pref.dart';
 import 'package:mood_shifting_assistent/models/uid.dart';
 import 'package:mood_shifting_assistent/my_home_page.dart';
 import 'package:mood_shifting_assistent/screens/home_page.dart';
@@ -11,6 +12,7 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await SharedPref.init();
 
   runApp(const MyApp());
 }
