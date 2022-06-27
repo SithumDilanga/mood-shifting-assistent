@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:mood_shifting_assistent/boost_yourself/shared_pref.dart';
+import 'package:mood_shifting_assistent/services/shared_pref.dart';
 import 'package:mood_shifting_assistent/models/uid.dart';
 import 'package:mood_shifting_assistent/services/shared_pref.dart';
 import 'package:mood_shifting_assistent/text_classification/classifier.dart';
@@ -57,7 +57,7 @@ class _TextClassificationState extends State<TextClassification> {
           title: const Text('Text classification'),
         ),
         body: StreamBuilder<DocumentSnapshot>(
-          stream: _databaseService.getPosts('Rfpm4kAiYKVwJcNNomVI', dailyProgressValue),
+          stream: null,
           builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
 
             if(snapshot.hasData) {
@@ -69,7 +69,7 @@ class _TextClassificationState extends State<TextClassification> {
             }
 
             return FutureBuilder(
-              future: _databaseService.getDailyProgress('Rfpm4kAiYKVwJcNNomVI'),
+              future: _databaseService.getDailyProgress(widget.uid),
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         
                 if (snapshot.hasData) {
@@ -82,15 +82,15 @@ class _TextClassificationState extends State<TextClassification> {
         
                   print('bitch ${dailyProgress}');
         
-                  return StreamBuilder<DocumentSnapshot>(
-                  stream: _databaseService.getPosts('U1L4ppBqZ8lNAYq1uUnM', dailyProgress),
-                  builder: (context, streamSnapshot) {
+                  return StreamBuilder<QuerySnapshot>(
+                  stream: _databaseService.getPosts(widget.uid, dailyProgress),
+                  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
         
                     if(streamSnapshot.hasData) {
         
-                      dynamic posts = streamSnapshot.data?.data();
+                      // dynamic posts = streamSnapshot.data?.data();
         
-                      print('streamSnapshot ${posts['posts']}');
+                      print('streamSnapshot ${streamSnapshot.data!.docs[0]['title']}');
                     }
         
                     return FutureBuilder(

@@ -121,7 +121,7 @@ class DatabaseService {
 
           totalProgrss = totalProgrss + querySnapshot.docs[i]['statusCalculation'];
 
-          print('dailyProgress ${querySnapshot.docs[i]['statusCalculation']}');
+          // print('dailyProgress ${querySnapshot.docs[i]['statusCalculation']}');
 
         } else {
 
@@ -164,7 +164,7 @@ class DatabaseService {
     // final dailyProgress = await getDailyProgress(userId);
 
 
-    print('dailyPosts ${dailyProgress}');
+    // print('dailyPosts ${dailyProgress}');
 
     // double todayProgress = dailyProgress.last['statusCalculation'];
 
@@ -178,23 +178,41 @@ class DatabaseService {
 
   }
 
-  Stream<DocumentSnapshot>? getPosts(String uid, double dailyProgress) {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getPosts(String uid, double dailyProgress) {
 
     dynamic posts;
 
     print('dailyStreamProgress ${dailyProgress}');
 
-    if(dailyProgress >= 0.5 && dailyProgress < 0.6) {
+    if(dailyProgress >= 0.5 && dailyProgress < 0.7) {
 
-      return FirebaseFirestore.instance.collection('posts').doc('PWLyCx7Pnc61JO0biuQ9').snapshots();
+      return FirebaseFirestore.instance.collection('posts').doc('PWLyCx7Pnc61JO0biuQ9').collection('positiveStage1').snapshots();
 
-    } else if(dailyProgress >= 0.6 && dailyProgress < 0.7) {
-      return FirebaseFirestore.instance.collection('posts').doc('U1L4ppBqZ8lNAYq1uUnM').snapshots();
+    } else if(dailyProgress >= 0.7 && dailyProgress < 0.8) {
+
+      return FirebaseFirestore.instance.collection('posts').doc('PWLyCx7Pnc61JO0biuQ9').collection('positiveStage2').snapshots();
+
+    } else if(dailyProgress >= 0.8 && dailyProgress <= 1) {
+
+      return FirebaseFirestore.instance.collection('posts').doc('PWLyCx7Pnc61JO0biuQ9').collection('positiveStage2').snapshots();
+
+    } else if(dailyProgress >= 0.3 && dailyProgress < 0.5) {
+
+      return FirebaseFirestore.instance.collection('posts').doc('PWLyCx7Pnc61JO0biuQ9').collection('negativeStage1').snapshots();
+
+    } else if(dailyProgress >= 0.2 && dailyProgress < 0.3) {
+
+      return FirebaseFirestore.instance.collection('posts').doc('PWLyCx7Pnc61JO0biuQ9').collection('negativeStage2').snapshots();
+
+    } else if(dailyProgress >= 0.0 && dailyProgress < 0.2) {
+
+      return FirebaseFirestore.instance.collection('posts').doc('PWLyCx7Pnc61JO0biuQ9').collection('negativeStage3').snapshots();
+
     }
 
     print('newposts ${posts}');
 
-    // return posts;
+    return posts;
 
     // print('postsStream ${postsStream}');
 
@@ -249,6 +267,12 @@ class DatabaseService {
     });
 
   } 
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getPreviousJournals() {
+
+    return userCollection.doc(uid).collection('dailyProgress').snapshots();
+
+  }
   
 
   // // user posts list from snapshot

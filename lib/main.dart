@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:mood_shifting_assistent/boost_yourself/shared_pref.dart';
+import 'package:mood_shifting_assistent/services/shared_pref.dart';
 import 'package:mood_shifting_assistent/models/uid.dart';
 import 'package:mood_shifting_assistent/my_home_page.dart';
 import 'package:mood_shifting_assistent/screens/home_page.dart';
@@ -22,20 +22,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        StreamProvider<UID?>.value(
+          initialData: null,
+          value: AuthService().user, 
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Flutter',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: Wrapper() //HomePage() //const MyHomePage(title: 'Flutter Demo'),
       ),
-      home: MultiProvider(
-        providers: [
-          StreamProvider<UID?>.value(
-            initialData: null,
-            value: AuthService().user, 
-          ),
-        ],
-        child: Wrapper(),
-      ) //HomePage() //const MyHomePage(title: 'Flutter Demo'),
     );
   }
 }

@@ -5,7 +5,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mood_shifting_assistent/boost_yourself/prev_schedules.dart';
-import 'package:mood_shifting_assistent/boost_yourself/shared_pref.dart';
+import 'package:mood_shifting_assistent/services/shared_pref.dart';
 
 
 class BoostYourself extends StatefulWidget {

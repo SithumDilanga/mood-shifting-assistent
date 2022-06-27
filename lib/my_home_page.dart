@@ -1,19 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mood_shifting_assistent/admin/add_daily_quote.dart';
+import 'package:mood_shifting_assistent/article_page.dart';
 import 'package:mood_shifting_assistent/auth/sign_up.dart';
 import 'package:mood_shifting_assistent/boost_yourself/boost_yourself.dart';
 import 'package:mood_shifting_assistent/line_chart.dart';
 import 'package:mood_shifting_assistent/models/uid.dart';
+import 'package:mood_shifting_assistent/screens/previous_journals.dart';
 import 'package:mood_shifting_assistent/services/auth.dart';
 import 'package:mood_shifting_assistent/services/database.dart';
 import 'package:mood_shifting_assistent/text_classification/text_classification.dart';
 import 'package:provider/provider.dart';
 
 class NewHomePage extends StatefulWidget {
-  const NewHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  const NewHomePage({Key? key,}) : super(key: key);
 
   @override
   State<NewHomePage> createState() => _NewHomePageState();
@@ -33,7 +33,7 @@ class _NewHomePageState extends State<NewHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('Mood shifting'),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('users').doc(user.uid).collection('dailyProgress').orderBy('timeStamp', descending: false).limit(7).snapshots(),
@@ -84,6 +84,17 @@ class _NewHomePageState extends State<NewHomePage> {
                           MaterialPageRoute(builder: (context) => TextClassification(
                             uid: user.uid,
                           )),
+                        );
+                      }, 
+                    ),
+                    ElevatedButton(
+                      child: const Text(
+                        'Previous journals'
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => PreviousJournals(uid: user.uid,)),
                         );
                       }, 
                     ),
@@ -154,18 +165,14 @@ class _NewHomePageState extends State<NewHomePage> {
                         'Add daily quote'
                       ),
                       onPressed: () {
-          
-                        _authService.logOut().whenComplete(() {
-          
+                    
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const AddDailyQuote()
                             ),
                           );
-          
-                        });
-          
+                    
                       }, 
                     ),
                     ElevatedButton(
@@ -176,6 +183,21 @@ class _NewHomePageState extends State<NewHomePage> {
           
                         _databaseService.getWeeklyProgresses('Rfpm4kAiYKVwJcNNomVI');
           
+                      }, 
+                    ),
+                    ElevatedButton(
+                      child: const Text(
+                        'Article'
+                      ),
+                      onPressed: () {
+                    
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ArticlePage()
+                            ),
+                          );
+                    
                       }, 
                     ),
                   ],

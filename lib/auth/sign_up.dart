@@ -8,6 +8,8 @@ import 'package:mood_shifting_assistent/my_home_page.dart';
 import 'package:mood_shifting_assistent/services/auth.dart';
 import 'package:mood_shifting_assistent/utils/route_trans_anim.dart';
 
+import '../models/uid.dart';
+
 class SignUp extends StatefulWidget {
   const SignUp({ Key? key }) : super(key: key);  
 
@@ -79,6 +81,7 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
+
     return Material(
       child: Scaffold(
         backgroundColor: Colors.grey[200],
@@ -298,7 +301,7 @@ class _SignUpState extends State<SignUp> {
           
                                         Navigator.pushAndRemoveUntil(
                                           context,
-                                          MaterialPageRoute(builder: (context) => NewHomePage(title: 'title')),
+                                          MaterialPageRoute(builder: (context) => NewHomePage()),
                                           (Route<dynamic> route) => false,
                                         );
                                       }

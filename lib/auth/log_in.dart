@@ -6,6 +6,9 @@ import 'package:mood_shifting_assistent/auth/sign_up.dart';
 import 'package:mood_shifting_assistent/my_home_page.dart';
 import 'package:mood_shifting_assistent/services/auth.dart';
 import 'package:mood_shifting_assistent/utils/route_trans_anim.dart';
+import 'package:provider/provider.dart';
+
+import '../models/uid.dart';
 
 class Login extends StatefulWidget {
   const Login({ Key? key }) : super(key: key);
@@ -52,6 +55,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.grey[200],
       body: SingleChildScrollView(
@@ -170,7 +174,7 @@ class _LoginState extends State<Login> {
         
                                         Navigator.pushAndRemoveUntil(
                                           context,
-                                          MaterialPageRoute(builder: (context) => NewHomePage(title: 'title')),
+                                          MaterialPageRoute(builder: (context) => NewHomePage()),
                                           (Route<dynamic> route) => false,
                                         );
                                       }
