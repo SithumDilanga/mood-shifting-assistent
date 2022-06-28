@@ -204,10 +204,10 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
           height: height,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(
-                  'https://miro.medium.com/max/701/1*Y450KzMbvk2q7qCf36yEKg.png'
-                ),
-                // image: AssetImage('assets/images/drawer-img3.jpg'),
+                // image: NetworkImage(
+                //   'https://miro.medium.com/max/701/1*Y450KzMbvk2q7qCf36yEKg.png'
+                // ),
+                image: AssetImage('assets/images/boost_yourself_background.jpg'),
                 fit: BoxFit.cover
               )
             ),

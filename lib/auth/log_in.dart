@@ -63,8 +63,13 @@ class _LoginState extends State<Login> {
           child: Form(
               child: Stack(
                 children: [
-                  Image.network(
-                   'https://images4.alphacoders.com/687/687987.jpg'
+                  // Image.network(
+                  //  'https://images4.alphacoders.com/687/687987.jpg'
+                  // ),
+                  Image.asset(
+                    'assets/images/auth-background-image2.png',
+                    // height: 300,
+                    fit: BoxFit.cover,
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16.0, 200.0, 16.0, 0),
@@ -183,12 +188,12 @@ class _LoginState extends State<Login> {
                                 } : null,
                               ),
                             ),
-                            SizedBox(height: 16.0,),
+                            const SizedBox(height: 16.0,),
                               Center(
                                 child: RichText(
                                   text: TextSpan(
                                     text: "Don't have an account ? ",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.bold
@@ -196,8 +201,8 @@ class _LoginState extends State<Login> {
                                     children: [
                                       TextSpan(
                                         text: 'Sign Up',
-                                        style: TextStyle(
-                                          color: const Color(0xff77BF87),
+                                        style: const TextStyle(
+                                          color: Color(0xff77BF87),
                                           fontWeight: FontWeight.bold,
                                           decoration: TextDecoration.underline,
                                         ),

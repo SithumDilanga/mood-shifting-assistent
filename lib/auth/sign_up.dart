@@ -90,9 +90,14 @@ class _SignUpState extends State<SignUp> {
             child: Form(
                 child: Stack(
                   children: [
-                     Image.network(
-                      'https://images4.alphacoders.com/687/687987.jpg'
-                     ),
+                    //  Image.network(
+                    //   'https://images4.alphacoders.com/687/687987.jpg'
+                    //  ),
+                    Image.asset(
+                      'assets/images/auth-background-image2.png',
+                      // height: 300,
+                      fit: BoxFit.cover,
+                    ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16.0, 200.0, 16.0, 0),
                       child: Card(
@@ -129,39 +134,6 @@ class _SignUpState extends State<SignUp> {
                                   });
                                 },
                               ),
-                              SizedBox(height: 16.0),
-                              Text(
-                                'Username', 
-                                style: TextStyle(
-                                  fontSize: 16.0, 
-                                  color: Colors.grey
-                                ),
-                              ),
-                              TextFormField(
-                                // controller: _textController,
-                                cursorColor: const Color(0xff77BF87),
-                                decoration: InputDecoration(
-                                  //hintText: 'Enter your Name'
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: const Color(0xff77BF87))
-                                  ),
-                                  errorText: usernameErrorText
-                                ),
-                                style: TextStyle(
-                                  fontSize: 18
-                                ),
-                                inputFormatters: [
-                                  // not letting user add white spaces
-                                  FilteringTextInputFormatter.deny(
-                                    RegExp(r'\s')
-                                  ),
-                                ],
-                                onChanged: (val) {
-                                  setState(() {
-                                    username = val;
-                                  });
-                                },
-                              ),    
                               SizedBox(height: 16.0),   
                               Text(
                                 'Name', 
@@ -172,7 +144,7 @@ class _SignUpState extends State<SignUp> {
                               ),
                               TextFormField(
                                 // controller: _textController,
-                                cursorColor: const Color(0xff77BF87),
+                                cursorColor:const Color(0xff77BF87),
                                 decoration: InputDecoration(
                                   //hintText: 'Enter your Name'
                                   focusedBorder: UnderlineInputBorder(

@@ -75,6 +75,11 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/images/boost_yourself_background.jpg
+    - assets/images/auth-background-image.png
+    - assets/images/auth-background-image2.png
+    - assets/images/car1.jpg
+    - assets/images/car2.jpg
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
