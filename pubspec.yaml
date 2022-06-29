@@ -76,6 +76,7 @@ flutter:
   assets:
     - assets/
     - assets/images/boost_yourself_background.jpg
+    - assets/images/boost_yourself_background.png
     - assets/images/auth-background-image.png
     - assets/images/auth-background-image2.png
     - assets/images/car1.jpg

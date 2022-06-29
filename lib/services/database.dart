@@ -235,36 +235,58 @@ class DatabaseService {
   Future getDailyQuote() async {
 
     List dailyQuote = [];
+    String quote = '';
 
-    dailyQuoteCollection.orderBy('timeStamp', descending: true).limit(1).get().then((QuerySnapshot querySnapshot) {
-        querySnapshot.docs.forEach((doc) {
-          dailyQuote.add(doc["quote"]);
-            print('quote ${doc["quote"]}');
-        });
-    });
+    return dailyQuoteCollection.doc('4DydfSuszSU6jwqcx7Uw').get();
 
-    return dailyQuote;
+    // dailyQuoteCollection.orderBy('timeStamp', descending: true).limit(1).get().then((QuerySnapshot querySnapshot) {
+    //     querySnapshot.docs.forEach((doc) {
+    //       dailyQuote.add(doc["quote"]);
+    //       quote = doc["quote"];
+    //         // print('quote ${doc["quote"]}');
+    //     });
+    // });
 
+    // dailyQuoteCollection.orderBy('timeStamp', descending: true).limit(1).get().then((value) {
+
+    //   if(value.docs.length > 0){
+
+    //     dynamic documentData = value.docs[0];
+    //     print('quote ${documentData}');  
+
+    //     // quote = value.docs[0] as String;
+
+
+    //     return value.docs[0];
+    //   }
+
+    // });
+    
   }  
 
    Future addNewDailyQuote(String quote) async {
 
-    return dailyQuoteCollection.doc().set({
+    dailyQuoteCollection.doc('4DydfSuszSU6jwqcx7Uw').set({
       'quote': quote,
       'timeStamp': FieldValue.serverTimestamp(),
-    }).then((value) {
-      
-      Fluttertoast.showToast(
-        msg: "Successfully added daily quote",
-        toastLength: Toast.LENGTH_SHORT,
-      );
-
-    }).onError((error, stackTrace) {
-        Fluttertoast.showToast(
-          msg: "Error adding daily quote",
-          toastLength: Toast.LENGTH_SHORT,
-        );
     });
+
+    // return dailyQuoteCollection.doc().set({
+    //   'quote': quote,
+    //   'timeStamp': FieldValue.serverTimestamp(),
+    // }).then((value) {
+      
+    //   Fluttertoast.showToast(
+    //     msg: "Successfully added daily quote",
+    //     toastLength: Toast.LENGTH_SHORT,
+    //   );
+
+    // }).onError((error, stackTrace) {
+    //     Fluttertoast.showToast(
+    //       msg: "Error adding daily quote",
+    //       toastLength: Toast.LENGTH_SHORT,
+    //     );
+    // });
 
   } 
 

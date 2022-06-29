@@ -6,11 +6,13 @@ class LoadingAnimation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: SpinKitThreeBounce(
-        color: Color(0xff77BF87),
-        size: 50.0,
-      )
+    return const Material(
+      child: Center(
+        child: SpinKitThreeBounce(
+          color: Color(0xff77BF87),
+          size: 50.0,
+        )
+      ),
     );
   }
 }

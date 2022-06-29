@@ -30,7 +30,7 @@ class _PreviousSchedulesState extends State<PreviousSchedules> {
 
               if(widget.dateTimeList!.isEmpty)
                 Card(
-                  color: Colors.blueGrey[700],
+                  color: const Color(0xFF77BF87),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
@@ -70,7 +70,7 @@ class CardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.blueGrey[700],
+      color: const Color(0xFF77BF87),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

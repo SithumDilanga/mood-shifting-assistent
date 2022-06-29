@@ -42,8 +42,25 @@ class _LineChartState extends State<LineChart> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          // title: const Text(
+          //   'Mood vatiation'
+          // ),
+          backgroundColor: Colors.grey[50],
+          elevation: 0,
           title: const Text(
-            'Mood vatiation'
+            'Mood Variation',
+            style: TextStyle(
+              color: Colors.black
+            ),
+          ),
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            }, 
           ),
         ),
         body: _buildDefaultLineChart()
@@ -76,6 +93,7 @@ class _LineChartState extends State<LineChart> {
   List<LineSeries<ChartData, num>> _getDefaultLineSeries() {
     return <LineSeries<ChartData, num>>[
       LineSeries<ChartData, num>(
+        color: const Color(0xFF77BF87),
         animationDuration: 2500,
         dataSource: chartData!,
         xValueMapper: (ChartData sales, _) => sales.x,

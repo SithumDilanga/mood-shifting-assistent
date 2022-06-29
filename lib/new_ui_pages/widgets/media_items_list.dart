@@ -16,7 +16,10 @@ class MediaItemList2 extends StatelessWidget {
     print('articleList ${articleList.length}');
 
     return ListView.builder(
-      padding: const EdgeInsets.all(8.0),
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.zero,
+      // padding: const EdgeInsets.all(8.0),
       itemExtent: 160.0,
       itemCount: articleList.length,
       itemBuilder: (context, index) {
@@ -25,8 +28,8 @@ class MediaItemList2 extends StatelessWidget {
             height: 150,
             child: ClipRRect(
               borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  bottomLeft: Radius.circular(10)),
+                  topLeft: Radius.circular(9),
+                  bottomLeft: Radius.circular(9)),
               child: Image(
                   image: NetworkImage(
                     '${articleList[index]['postImage']}'

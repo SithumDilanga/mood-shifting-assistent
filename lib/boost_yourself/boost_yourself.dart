@@ -197,18 +197,19 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
               fontSize: 20,
             ),
           ),
-          backgroundColor: Colors.blueGrey[700],
+          backgroundColor: const Color(0xFF77BF87),
         ),
         body: 
         Container(
           height: height,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 // image: NetworkImage(
                 //   'https://miro.medium.com/max/701/1*Y450KzMbvk2q7qCf36yEKg.png'
                 // ),
-                image: AssetImage('assets/images/boost_yourself_background.jpg'),
-                fit: BoxFit.cover
+                image: const AssetImage('assets/images/boost_yourself_background.png'),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.4), BlendMode.dstATop),
               )
             ),
           child: Stack(
@@ -220,7 +221,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                  child: Container(
                    height: 200,
                    width: 200,
-                   color: Colors.blueGrey[700],
+                   color: const Color(0xFF77BF87),
                  ),
                ),
              ),
@@ -235,7 +236,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                      child: Container(
                        height: 200,
                        width: 200,
-                       color: Colors.blueGrey[700],
+                       color: const Color(0xFF77BF87),
                      ),
                    ),
                  ),
@@ -250,7 +251,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                    child: Container(
                      height: 100,
                      width: 100,
-                     color: Colors.blueGrey[700],
+                     color: const Color(0xFF77BF87),
                    ),
                  ),
                ),
@@ -259,13 +260,13 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                child: Column(                // Main Column
                  crossAxisAlignment: CrossAxisAlignment.stretch,
                  children: <Widget>[
-                   const Padding(
+                    Padding(
                      padding: EdgeInsets.only(left: 30.0, top: 24.0),
                      child: Text(
                        'Type the quote you want',
                        style: TextStyle(
                          fontSize: 18,
-                         color: Colors.white,
+                         color: Colors.grey[700],
                          fontWeight: FontWeight.bold
                        ),
                      ),
@@ -312,12 +313,12 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                        Column(       // Choose Date
                        crossAxisAlignment: CrossAxisAlignment.start,
                          children: <Widget>[
-                           const Text(
+                           Text(
                              'Choose Date',
                              textAlign: TextAlign.left,
                              style: TextStyle(
                                fontSize: 16,
-                               color: Colors.white,
+                               color: Colors.grey[700],
                                fontWeight: FontWeight.bold
                              ),
                            ),
@@ -358,12 +359,12 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                        Column(      // Choose Time
                        crossAxisAlignment: CrossAxisAlignment.start,
                          children: <Widget>[
-                           const Text(
+                           Text(
                              'Choose Time',
                              textAlign: TextAlign.left,
                              style: TextStyle(
                                fontSize: 16,
-                               color: Colors.white,
+                               color: Colors.grey[700],
                                fontWeight: FontWeight.bold
                              ),
                            ),
@@ -448,38 +449,45 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                           // setting shared preferences
                           await SharedPref.setQuoteList(quoteList);
                           await SharedPref.setDateTimeList(dateTimeList);
+
+                          qutoteTextController.clear();
     
                        },
                        style: ButtonStyle(
-                         backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                         backgroundColor: MaterialStateProperty.all<Color>(
+                          Colors.white
+                        ),
                          shape: MaterialStateProperty.all(
                            RoundedRectangleBorder(
+                            side: BorderSide(
+                              color: const Color(0xFF77BF87)
+                            ),
                             borderRadius: BorderRadius.circular(30)
                          )
                         ),
                         padding: MaterialStateProperty.all(
                           const EdgeInsets.only(top: 12.0, bottom: 12.0)
                         ),
-                        elevation: MaterialStateProperty.all(3.8)
+                        elevation: MaterialStateProperty.all(3.8),
                        ), 
-                       child: Text(
+                       child: const Text(
                          'Schedule',
                          style: TextStyle(
                            fontSize: 20.0,
-                           color: Colors.blueGrey[700],
+                           color: Colors.black,
                            fontWeight: FontWeight.bold
                          )
                        )
                       ),
                    ),
                    const SizedBox(height: 16.0),
-                   const Padding(
+                  Padding(
                      padding: const EdgeInsets.only(left: 24.0),
                      child: Text(
                        'Previous Schedules',
                        style: TextStyle(
                          fontSize: 16.0,
-                         color: Colors.white,
+                         color: Colors.grey[700],
                          fontWeight: FontWeight.bold
                        ),
                      ),

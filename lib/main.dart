@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mood_shifting_assistent/services/shared_pref.dart';
 import 'package:mood_shifting_assistent/models/uid.dart';
 import 'package:mood_shifting_assistent/my_home_page.dart';
-import 'package:mood_shifting_assistent/screens/home_page.dart';
 import 'package:mood_shifting_assistent/services/auth.dart';
 import 'package:mood_shifting_assistent/wrapper.dart';
 import 'package:provider/provider.dart';

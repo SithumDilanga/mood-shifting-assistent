@@ -90,7 +90,7 @@ class _TextClassificationState extends State<TextClassification> {
         
                       // dynamic posts = streamSnapshot.data?.data();
         
-                      print('streamSnapshot ${streamSnapshot.data!.docs[0]['title']}');
+                      // print('streamSnapshot ${streamSnapshot.data!.docs[0]['title']}');
                     }
         
                     return FutureBuilder(
