@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mood_shifting_assistent/new_ui_pages/screens/home_page.dart';
 import 'package:mood_shifting_assistent/services/database.dart';
 import 'package:mood_shifting_assistent/services/shared_pref.dart';
 import 'package:mood_shifting_assistent/text_classification/classifier.dart';
@@ -126,6 +127,12 @@ class _TodayFeeling2ScreenState extends State<TodayFeelingScreen2> {
                         ).whenComplete(() {
                         
                           _textController.clear();
+                          
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePage2()),
+                            (Route<dynamic> route) => false,
+                          );
 
                         });
 

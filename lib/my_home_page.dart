@@ -4,7 +4,6 @@ import 'package:mood_shifting_assistent/admin/add_daily_quote.dart';
 import 'package:mood_shifting_assistent/article_page.dart';
 import 'package:mood_shifting_assistent/auth/sign_up.dart';
 import 'package:mood_shifting_assistent/boost_yourself/boost_yourself.dart';
-import 'package:mood_shifting_assistent/kavee_pages/registration_form.dart';
 import 'package:mood_shifting_assistent/line_chart.dart';
 import 'package:mood_shifting_assistent/models/uid.dart';
 import 'package:mood_shifting_assistent/new_ui_pages/screens/home_page.dart';
@@ -44,7 +43,7 @@ class _NewHomePageState extends State<NewHomePage> {
       
             if(streamSnapshot.hasData) {
       
-              print('streamSnapshot ${streamSnapshot.data!.docs[0]['statusCalculation']}');
+              // print('streamSnapshot ${streamSnapshot.data!.docs[0]['statusCalculation']}');
       
               for (dynamic element in streamSnapshot.data!.docs) {
                 weeklyProgresses.add(element['statusCalculation']);
@@ -212,9 +211,7 @@ class _NewHomePageState extends State<NewHomePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => HomePage2(
-                                  uid: user.uid,
-                                )
+                                builder: (context) => HomePage2()
                               ),
                             );
                       

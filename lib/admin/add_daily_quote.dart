@@ -19,7 +19,18 @@ class _AddDailyQuoteState extends State<AddDailyQuote> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Daily Quote'),
+        backgroundColor: const Color(0xFF77BF87),
+        title: const Text(
+          'Add Daily Quote'
+        ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios_rounded
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          }, 
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

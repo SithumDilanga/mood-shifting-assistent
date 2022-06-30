@@ -49,10 +49,12 @@ dependencies:
   firebase_auth: ^3.3.20
   provider: ^6.0.3
   flutter_spinkit: ^5.1.0
+  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_native_splash: ^2.1.6
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -81,6 +83,7 @@ flutter:
     - assets/images/auth-background-image2.png
     - assets/images/car1.jpg
     - assets/images/car2.jpg
+    - assets/images/app-background.jpg
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -107,3 +110,6 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_native_splash:
+  image: assets/images/ic_launcher_rounded.png
+  color: "#FFFFFF"

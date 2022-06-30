@@ -8,6 +8,7 @@ class SharedPref {
   static const _keyQuoteList = 'quoteList';
   static const _keyDateTimeList = 'dateTimeList';
   static const _keyDailyProgress = 'dailyProgressValue';
+  static const _keyUserName = 'userName';
 
   static Future init() async {
     return _preferences = await SharedPreferences.getInstance();
@@ -29,18 +30,6 @@ class SharedPref {
     return _preferences?.getStringList(_keyDateTimeList);
   }
 
-  // ---------------- gritie features -------------------
-
-  static const _keyIsWelcomed = 'welcome';
-  static const _keyUserName = 'userName';
-
-  static Future<bool?> setIsWelcomed(bool isWelcomed) async {
-    return await _preferences?.setBool(_keyIsWelcomed, isWelcomed);
-  }
-
-  static bool getIsWelcomed() {
-    return _preferences?.getBool(_keyIsWelcomed) ?? false;
-  }
   
   static Future<bool?> setUserName(String userName) async {
     print('userName ' +  userName.toString());

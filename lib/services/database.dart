@@ -74,7 +74,7 @@ class DatabaseService {
     //       print('newdocs ' + data.toString());
     //       newDocs.add(data['statusCalculation']);
     //   }).toList();
-
+                                                                           
     //   print('newDocs $newDocs');
 
     //   return newDocs;
@@ -194,7 +194,7 @@ class DatabaseService {
 
     } else if(dailyProgress >= 0.8 && dailyProgress <= 1) {
 
-      return FirebaseFirestore.instance.collection('posts').doc('PWLyCx7Pnc61JO0biuQ9').collection('positiveStage2').snapshots();
+      return FirebaseFirestore.instance.collection('posts').doc('PWLyCx7Pnc61JO0biuQ9').collection('positiveStage3').snapshots();
 
     } else if(dailyProgress >= 0.3 && dailyProgress < 0.5) {
 
@@ -209,8 +209,6 @@ class DatabaseService {
       return FirebaseFirestore.instance.collection('posts').doc('PWLyCx7Pnc61JO0biuQ9').collection('negativeStage3').snapshots();
 
     }
-
-    print('newposts ${posts}');
 
     return posts;
 
@@ -292,7 +290,9 @@ class DatabaseService {
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getPreviousJournals() {
 
-    return userCollection.doc(uid).collection('dailyProgress').snapshots();
+    return userCollection.doc(uid).collection('dailyProgress')
+      .orderBy('timeStamp', descending: true)
+      .snapshots();
 
   }
   

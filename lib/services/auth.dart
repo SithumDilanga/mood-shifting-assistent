@@ -5,6 +5,7 @@ import 'package:mood_shifting_assistent/models/uid.dart';
 import 'package:mood_shifting_assistent/services/database.dart';
 // import 'package:motivational_quotes/boost_yourself/shared_pref.dart';
 import 'package:mood_shifting_assistent/models/uid.dart';
+import 'package:mood_shifting_assistent/services/shared_pref.dart';
 // import 'package:motivational_quotes/services/database.dart';
 
 class AuthService {
@@ -34,6 +35,8 @@ class AuthService {
         email: email, 
         password: password
       );
+
+      SharedPref.setUserName(name);
 
       // setting userName as sharedPref
       // SharedPref.setUserName(name);

@@ -198,6 +198,15 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
             ),
           ),
           backgroundColor: const Color(0xFF77BF87),
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            }, 
+          ),
         ),
         body: 
         Container(
@@ -209,7 +218,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                 // ),
                 image: const AssetImage('assets/images/boost_yourself_background.png'),
                 fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.4), BlendMode.dstATop),
+                colorFilter: ColorFilter.mode(Color(0xFFD6EBDB).withOpacity(0.4), BlendMode.dstATop),
               )
             ),
           child: Stack(
@@ -221,7 +230,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                  child: Container(
                    height: 200,
                    width: 200,
-                   color: const Color(0xFF77BF87),
+                   color: const Color(0xFFD6EBDB),
                  ),
                ),
              ),
@@ -236,7 +245,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                      child: Container(
                        height: 200,
                        width: 200,
-                       color: const Color(0xFF77BF87),
+                       color: const Color(0xFFD6EBDB),
                      ),
                    ),
                  ),
@@ -251,7 +260,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                    child: Container(
                      height: 100,
                      width: 100,
-                     color: const Color(0xFF77BF87),
+                     color: const Color(0xFFD6EBDB),
                    ),
                  ),
                ),
@@ -266,7 +275,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                        'Type the quote you want',
                        style: TextStyle(
                          fontSize: 18,
-                         color: Colors.grey[700],
+                         color: Colors.black,
                          fontWeight: FontWeight.bold
                        ),
                      ),
@@ -318,7 +327,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                              textAlign: TextAlign.left,
                              style: TextStyle(
                                fontSize: 16,
-                               color: Colors.grey[700],
+                               color: Colors.black,
                                fontWeight: FontWeight.bold
                              ),
                            ),
@@ -332,7 +341,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                               height: _height! / 12,
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
-                                color: Colors.grey[200]!.withOpacity(0.8),
+                                color: Colors.grey[400]!.withOpacity(0.8),
                                 borderRadius: BorderRadius.circular(5)
                               ),
                               child: TextFormField(
@@ -364,7 +373,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                              textAlign: TextAlign.left,
                              style: TextStyle(
                                fontSize: 16,
-                               color: Colors.grey[700],
+                               color: Colors.black,
                                fontWeight: FontWeight.bold
                              ),
                            ),
@@ -378,7 +387,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                               height: _height! / 12,
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
-                                color: Colors.grey[200]!.withOpacity(0.8),
+                                color: Colors.grey[400]!.withOpacity(0.8),
                                 borderRadius: BorderRadius.circular(5)
                               ),
                               child: TextFormField(
@@ -487,7 +496,7 @@ class _BoostYourselfState extends State<BoostYourself> with TickerProviderStateM
                        'Previous Schedules',
                        style: TextStyle(
                          fontSize: 16.0,
-                         color: Colors.grey[700],
+                         color: Colors.black,
                          fontWeight: FontWeight.bold
                        ),
                      ),

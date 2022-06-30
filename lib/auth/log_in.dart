@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mood_shifting_assistent/auth/sign_up.dart';
 import 'package:mood_shifting_assistent/my_home_page.dart';
+import 'package:mood_shifting_assistent/new_ui_pages/screens/home_page.dart';
 import 'package:mood_shifting_assistent/services/auth.dart';
 import 'package:mood_shifting_assistent/utils/route_trans_anim.dart';
 import 'package:provider/provider.dart';
@@ -179,7 +180,8 @@ class _LoginState extends State<Login> {
         
                                         Navigator.pushAndRemoveUntil(
                                           context,
-                                          MaterialPageRoute(builder: (context) => NewHomePage()),
+                                          MaterialPageRoute(builder: (context) =>     HomePage2()
+                                          ),
                                           (Route<dynamic> route) => false,
                                         );
                                       }

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mood_shifting_assistent/auth/log_in.dart';
 import 'package:mood_shifting_assistent/my_home_page.dart';
+import 'package:mood_shifting_assistent/new_ui_pages/screens/home_page.dart';
 import 'package:mood_shifting_assistent/services/auth.dart';
 import 'package:mood_shifting_assistent/utils/route_trans_anim.dart';
 
@@ -25,7 +26,6 @@ class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
 
   // text fields
-  String username = '';
   String name = '';
   String email = '';
   String password = '';
@@ -43,15 +43,6 @@ class _SignUpState extends State<SignUp> {
 
     if (!isValid) {
       return 'Invalid email';
-    }
-
-    return null;
-  }
-
-  String? get usernameErrorText {
-
-    if (username.isNotEmpty && username.length < 4) {
-      return 'Username must be at least 4 characterss';
     }
 
     return null;
@@ -235,7 +226,6 @@ class _SignUpState extends State<SignUp> {
                                   ),
                                   onPressed:(
                                     emailErrorText == null &&
-                                    usernameErrorText == null &&
                                     passwordErrorText == null && 
                                     confirmPSErrorText == null
                                   ) ? () async {
@@ -273,7 +263,7 @@ class _SignUpState extends State<SignUp> {
           
                                         Navigator.pushAndRemoveUntil(
                                           context,
-                                          MaterialPageRoute(builder: (context) => NewHomePage()),
+                                          MaterialPageRoute(builder: (context) => HomePage2()),
                                           (Route<dynamic> route) => false,
                                         );
                                       }
