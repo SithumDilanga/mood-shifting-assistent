@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mood_shifting_assistent/screens/home_page.dart';
 import 'package:mood_shifting_assistent/services/database.dart';
 
+
 class AddDailyQuote extends StatefulWidget {
   const AddDailyQuote({ Key? key }) : super(key: key);
 
