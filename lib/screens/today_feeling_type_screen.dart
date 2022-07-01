@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:mood_shifting_assistent/new_ui_pages/screens/home_page.dart';
+import 'package:mood_shifting_assistent/screens/home_page.dart';
 import 'package:mood_shifting_assistent/services/database.dart';
 import 'package:mood_shifting_assistent/services/shared_pref.dart';
 import 'package:mood_shifting_assistent/text_classification/classifier.dart';

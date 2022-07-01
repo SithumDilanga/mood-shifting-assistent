@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mood_shifting_assistent/boost_yourself/boost_yourself.dart';
-import 'package:mood_shifting_assistent/line_chart.dart';
-import 'package:mood_shifting_assistent/models/list_tile_model.dart';
+import 'package:mood_shifting_assistent/screens/line_chart.dart';
 import 'package:mood_shifting_assistent/new_ui_pages/screens/previous_journals_screen.dart';
 import 'package:mood_shifting_assistent/new_ui_pages/screens/settings.dart';
-import 'package:mood_shifting_assistent/new_ui_pages/screens/today_feeling_type_screen.dart';
+import 'package:mood_shifting_assistent/screens/today_feeling_type_screen.dart';
 import 'package:mood_shifting_assistent/new_ui_pages/widgets/media_items_list.dart';
 import 'package:mood_shifting_assistent/services/database.dart';
 import 'package:mood_shifting_assistent/services/shared_pref.dart';

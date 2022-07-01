@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mood_shifting_assistent/auth/sign_up.dart';
 import 'package:mood_shifting_assistent/models/uid.dart';
-import 'package:mood_shifting_assistent/my_home_page.dart';
-import 'package:mood_shifting_assistent/new_ui_pages/screens/home_page.dart';
+import 'package:mood_shifting_assistent/screens/home_page.dart';
 import 'package:provider/provider.dart';
 
 class Wrapper extends StatelessWidget {

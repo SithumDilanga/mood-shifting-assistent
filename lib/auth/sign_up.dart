@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mood_shifting_assistent/auth/log_in.dart';
-import 'package:mood_shifting_assistent/my_home_page.dart';
-import 'package:mood_shifting_assistent/new_ui_pages/screens/home_page.dart';
+import 'package:mood_shifting_assistent/screens/home_page.dart';
 import 'package:mood_shifting_assistent/services/auth.dart';
 import 'package:mood_shifting_assistent/utils/route_trans_anim.dart';
 
