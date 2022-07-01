@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class DatabaseService {
 
@@ -66,21 +64,6 @@ class DatabaseService {
     List newDocs = [];
 
     return userCollection.doc(userId).collection('dailyProgress').orderBy('timeStamp', descending: true).limit(7).get();
-    // .then((value) {
-    //   print('value ${value.docs.length}');
-
-    //   value.docs.map((DocumentSnapshot document) {
-    //     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-    //       print('newdocs ' + data.toString());
-    //       newDocs.add(data['statusCalculation']);
-    //   }).toList();
-                                                                           
-    //   print('newDocs $newDocs');
-
-    //   return newDocs;
-    // } 
-
-    // );
 
   }
 
@@ -147,12 +130,6 @@ class DatabaseService {
         
       }
 
-        // querySnapshot.docs.forEach((doc) {
-        //   dailProgress.add(doc);
-        //   var date = DateTime.parse(doc['timeStamp'].toDate().toString());
-        //   print('dailProgress $date');
-        // })
-
     });
 
     return average;
@@ -161,20 +138,9 @@ class DatabaseService {
 
   Future getDailyPosts(String userId, double dailyProgress) async {
 
-    // final dailyProgress = await getDailyProgress(userId);
-
-
-    // print('dailyPosts ${dailyProgress}');
-
-    // double todayProgress = dailyProgress.last['statusCalculation'];
-
-    // print('dailyPosts ${todayProgress}');
-
-    // if(todayProgress > 0.1) {
 
      return getPosts(userId, dailyProgress);
 
-    // }
 
   }
 
@@ -212,9 +178,6 @@ class DatabaseService {
 
     return posts;
 
-    // print('postsStream ${postsStream}');
-
-    // return postsStream;
 
   }
 
@@ -236,29 +199,6 @@ class DatabaseService {
     String quote = '';
 
     return dailyQuoteCollection.doc('4DydfSuszSU6jwqcx7Uw').get();
-
-    // dailyQuoteCollection.orderBy('timeStamp', descending: true).limit(1).get().then((QuerySnapshot querySnapshot) {
-    //     querySnapshot.docs.forEach((doc) {
-    //       dailyQuote.add(doc["quote"]);
-    //       quote = doc["quote"];
-    //         // print('quote ${doc["quote"]}');
-    //     });
-    // });
-
-    // dailyQuoteCollection.orderBy('timeStamp', descending: true).limit(1).get().then((value) {
-
-    //   if(value.docs.length > 0){
-
-    //     dynamic documentData = value.docs[0];
-    //     print('quote ${documentData}');  
-
-    //     // quote = value.docs[0] as String;
-
-
-    //     return value.docs[0];
-    //   }
-
-    // });
     
   }  
 
@@ -269,23 +209,6 @@ class DatabaseService {
       'timeStamp': FieldValue.serverTimestamp(),
     });
 
-    // return dailyQuoteCollection.doc().set({
-    //   'quote': quote,
-    //   'timeStamp': FieldValue.serverTimestamp(),
-    // }).then((value) {
-      
-    //   Fluttertoast.showToast(
-    //     msg: "Successfully added daily quote",
-    //     toastLength: Toast.LENGTH_SHORT,
-    //   );
-
-    // }).onError((error, stackTrace) {
-    //     Fluttertoast.showToast(
-    //       msg: "Error adding daily quote",
-    //       toastLength: Toast.LENGTH_SHORT,
-    //     );
-    // });
-
   } 
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getPreviousJournals() {
@@ -295,26 +218,5 @@ class DatabaseService {
       .snapshots();
 
   }
-  
-
-  // // user posts list from snapshot
-  // List<Post> _postsFromSnapshot(QuerySnapshot snapshot) {
-  //   return snapshot.docs.map((doc,) {
-  //     print('gritie doc ' + doc.toString());
-
-  //     if(doc.id == ) {
-
-  //     }
-
-  //     return Post(
-  //       postLink: 'postLink'
-  //     );
-  //   }).toList();
-  // }
-
-  // // get posts stream
-  // Stream<List<Post>> get getPosts {
-  //   return postsCollection.snapshots().map(_postsFromSnapshot);
-  // }
 
 }

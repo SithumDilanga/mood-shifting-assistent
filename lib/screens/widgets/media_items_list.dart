@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use, unnecessary_new
 
 import 'package:flutter/material.dart';
-import 'package:mood_shifting_assistent/article_page.dart';
+import 'package:mood_shifting_assistent/screens/article_page.dart';
 import 'package:mood_shifting_assistent/utils/route_trans_anim.dart';
 
 class MediaItemList2 extends StatelessWidget {

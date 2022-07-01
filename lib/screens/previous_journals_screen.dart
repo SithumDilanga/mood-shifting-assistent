@@ -3,42 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mood_shifting_assistent/services/database.dart';
 import 'package:mood_shifting_assistent/utils/loading_animation.dart';
 
-// class PreviousJournals2 extends StatelessWidget {
-//   const PreviousJournals2({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Column(
-//         children: [
-//           Container(
-//             height: 100,
-//             child: Row(
-//               children: [
-//                 Padding(
-//                   padding: const EdgeInsets.only(left: 10),
-//                   child: IconButton(
-//                       onPressed: () {}, icon: Icon(Icons.arrow_back_ios)),
-//                 ),
-//                 const Text(
-//                   'Previous Journals',
-//                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-//                 )
-//               ],
-//             ),
-//           ),
-//           Container(
-//             height: MediaQuery.of(context).size.height - 100,
-//             child: ListView(
-//               children: const [JournalItem()],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
 class PreviousJournals2 extends StatelessWidget {
 
   final uid;
