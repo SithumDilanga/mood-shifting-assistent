@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mood_shifting_assistent/screens/home_page.dart';
 import 'package:mood_shifting_assistent/services/database.dart';
 
 class AddDailyQuote extends StatefulWidget {
@@ -90,6 +91,18 @@ class _AddDailyQuoteState extends State<AddDailyQuote> {
                     _databaseService.addNewDailyQuote(itemNameController.text)
                     .then((value) {
                       itemNameController.clear();
+
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage2()),
+                        (Route<dynamic> route) => false,
+                      );
+
+                      Fluttertoast.showToast(
+                        msg: "Daily quote updated!",
+                        toastLength: Toast.LENGTH_SHORT,
+                      );
+
                     });
                   
                   } else {
